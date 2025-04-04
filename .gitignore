@@ -1,0 +1,19 @@
+# Dependency directories
+node_modules/
+# Environment files
+.env
+.env.local
+# Editor files
+.idea/
+.vscode/
+*.swp
+# Build files
+build/
+dist/
+# Docker files
+docker-compose.override.yml
+# Logs
+logs/
+*.log
+# OS files
+.DS_Store
