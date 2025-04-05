@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudwatch-app
+  labels:
+    app: cloudwatch-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudwatch-app
+  template:
+    metadata:
+      labels:
+        app: cloudwatch-app
+    spec:
+      containers:
+        - name: web
+          image: 054037143289.dkr.ecr.ap-south-1.amazonaws.com/cloudwatch:latest  # Replace with your actual image
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
+              value: postgres
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: dbname
